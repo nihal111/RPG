@@ -6,9 +6,6 @@ var password = "nihal111";
 // Setup at the start of the application.
 // Configure Kandy for the features we want to use.
 kandy.setup({
-    // Containers for streaming elements.
-    remoteVideoContainer: htmlElementRemote,
-    localVideoContainer: htmlElementLocal,
     // Events to listen for.
     listeners: {
         callinitiated: onCallInitiated,
