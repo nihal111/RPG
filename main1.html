@@ -174,8 +174,6 @@
 		    document.getElementById("mute-call").disabled = false;
 		    document.getElementById("hold-call").disabled = false;
 		    document.getElementById("end-call").disabled = false;
-
-        setTimeout(function(){window.location.href='index2.html'},30000);
 		}
 
 
@@ -232,6 +230,7 @@
         }
         console.log("loading "+username+" "+password);
         $('#username').text(username);
+        document.getElementById("username_span").innerHTML=username;
         kandy.login(projectAPIKey, username, password, onLoginSuccess, onLoginFailure);
 
         var users = ["", 'arpan', 'nihal', 'trehan', 'cheeku'];
@@ -260,15 +259,19 @@
               toCall = true;
               if(users[parseInt(json.second)] == 'arpan') {
                 $("#user_to_call").val("arpan@ferozepur.gmail.com");
+                document.getElementById("username_span").innerHTML=username+" and arpan";
               }
               if(users[parseInt(json.second)] == 'nihal') {
                 $("#user_to_call").val("nihal@ferozepur.gmail.com");
+                document.getElementById("username_span").innerHTML=username+" and nihal";
               }
               if(users[parseInt(json.second)] == 'trehan') {
                 $("#user_to_call").val("trehan@ferozepur.gmail.com");
+                document.getElementById("username_span").innerHTML=username+" and trehan";
               }
               if(users[parseInt(json.second)] == 'cheeku') {
                 $("#user_to_call").val("cheeku@ferozepur.gmail.com");
+                document.getElementById("username_span").innerHTML=username+" and cheeku";
               }
             }
           }
@@ -347,7 +350,7 @@
             <hr />
             <div class="clearfix">
               <p class="h4 pull-left">
-                <strong>Hello <span class="username"></span></strong>
+                <strong><span id="username_span" class="username"></span></strong>
               </p>
               <button class="btn btn-danger pull-right" id="logout-btn">Logout</button>
             </div>
