@@ -3,6 +3,68 @@ var projectAPIKey = "DAK37713725dc7242e9acda3d88e68aa132";
 var username = "arpan";
 var password = "nihal111";
 
+
+function makeCall(userid) {
+    kandy.call.makecall(userid, false);
+}
+
+function answerCall(callId) {
+    kandy.call.answerCall(callId, false)
+}
+
+function endCall() {
+    try {
+        kandy.call.endCall(callMade);
+    } catch {
+        console.log("Call made to nahi kata");
+    }
+
+    try {
+        kandy.call.endCall(callReceived);
+    } catch {
+        console.log("Call received to nahi kata");
+    }
+}
+
+function onCallInitiated(call, callee) {
+    console.log("Call initiated with"+callee);
+    callMade = call.getId();
+}
+
+function onCallInitiateFailed() {
+    console.log("Call initiation failed!");
+}
+
+function onCallIncoming(call) {
+    console.log("Call incoming");
+    callReceived = call.getId();
+    answerCall(callReceived);
+}
+
+function onCallAnswered() {
+    console.log("Call answered");
+}
+
+function onCallAnswerFailed() {
+    console.log("Call answering failed");
+}
+
+function onCallEnded(call) {
+    console.log("Call Ended");
+}
+
+function onCallEndFailed() {
+    console.log("Call end failed");
+}
+
+function onCallEstablished(call) {
+    console.log("Call established");
+}
+
+function onCallStateChanged() {
+    console.log("Call state changed");
+}
+
 // Setup at the start of the application.
 // Configure Kandy for the features we want to use.
 kandy.setup({
@@ -52,65 +114,4 @@ function onLoginFailure() {
 function onLogoutSuccess() {
     console.log("Logout was successful.");
     isLoggedIn = false;
-}
-
-function onCallInitiated(call, callee) {
-    console.log("Call initiated with"+callee);
-    callMade = call.getId();
-}
-
-function onCallInitiateFailed() {
-    console.log("Call initiation failed!");
-}
-
-function onCallIncoming(call) {
-    console.log("Call incoming");
-    callReceived = call.getId();
-    answerCall(callReceived);
-}
-
-function onCallAnswered() {
-    console.log("Call answered");
-}
-
-function onCallAnswerFailed() {
-    console.log("Call answering failed");
-}
-
-function onCallEnded(call) {
-    console.log("Call Ended");
-}
-
-function onCallEndFailed() {
-    console.log("Call end failed");
-}
-
-function onCallEstablished(call) {
-    console.log("Call established");
-}
-
-function onCallStateChanged() {
-    console.log("Call state changed");
-}
-
-function makeCall(userid) {
-    kandy.call.makecall(userid, false);
-}
-
-function answerCall(callId) {
-    kandy.call.answerCall(callId, false)
-}
-
-function endCall() {
-    try {
-        kandy.call.endCall(callMade);
-    } catch {
-        console.log("Call made to nahi kata");
-    }
-
-    try {
-        kandy.call.endCall(callReceived);
-    } catch {
-        console.log("Call received to nahi kata");
-    }
 }
