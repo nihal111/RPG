@@ -12,6 +12,7 @@ function makeCall(userid) {
 
 function answerCall(callId) {
     kandy.call.answerCall(callId, false)
+    kandy.call.unMuteCall(callId);
 }
 
 function endCall() {
@@ -45,6 +46,7 @@ function onCallEnded(call) {
 
 function onCallEstablished(call) {
     console.log("Call established");
+    kandy.call.unMuteCall(call.getId());
 }
 
 // Setup at the start of the application.
