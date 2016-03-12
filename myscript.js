@@ -110,7 +110,6 @@ function loadData() {
    }
    else
    {
-   localStorage.removeItem('_account');
    //decodes a string data encoded using base-64
    account = atob(account);
    //parses to Object the JSON string
