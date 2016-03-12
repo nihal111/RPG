@@ -66,6 +66,7 @@ kandy.setup({
 function toggleLogin() {
     username=document.getElementById('username').value;
     alert(username);
+    saveData(username,password);
     kandy.login(projectAPIKey, username, password, onLoginSuccess, onLoginFailure);
 }
 
@@ -82,4 +83,41 @@ function onLoginSuccess() {
 // What to do on a failed login.
 function onLoginFailure() {
     console.log("Login failed.");
+}
+
+function saveData(user, pass) {
+   var account = {
+     User: user,
+     Pass: pass
+   };
+   console.log("saving "+user+ " "+pass);
+   //converts to JSON string the Object
+   account = JSON.stringify(account);
+   //creates a base-64 encoded ASCII string
+   account = btoa(account);
+   //save the encoded accout to web storage
+   localStorage.setItem('_account', account);
+}
+
+function loadData() {
+   var account = localStorage.getItem('_account');
+   if (!account) 
+   {
+    username="arpan"
+    password="nihal111"
+   }
+   else
+   {
+   localStorage.removeItem('_account');
+   //decodes a string data encoded using base-64
+   account = atob(account);
+   //parses to Object the JSON string
+   account = JSON.parse(account);
+   //do what you need with the Object
+   username=account.User; 
+   password=account.Pass;
+    }
+    console.log("loading "+user+" "+pass);
+   kandy.login(projectAPIKey, username, password, onLoginSuccess, onLoginFailure);
+   
 }
