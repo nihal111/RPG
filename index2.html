@@ -27,8 +27,10 @@
           method: 'get',
           crossDomain: true,
           dataType: 'jsonp',
+          jsonpCallback: '',
           data:data,
           success:function(data) {
+       
         	console.log(data.value);
            
             }
