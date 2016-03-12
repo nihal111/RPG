@@ -65,6 +65,7 @@ kandy.setup({
 function toggleLogin() {
 
         username=document.getElementById('username').value;
+        alert(username);
        kandy.login(projectAPIKey, username, password, onLoginSuccess, onLoginFailure);
 
 }
@@ -74,6 +75,7 @@ function onLoginSuccess() {
 
     console.log("Login was successful for "+username);
     isLoggedIn = true;
+    alert("logged in" +username);
     location.href='main'
 }
 
