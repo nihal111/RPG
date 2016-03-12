@@ -58,17 +58,15 @@ kandy.setup({
     },
 
 });
-
-// Status of the user.
-var isLoggedIn = false;
 /*
  * Log the user in / out depending on current status.
  * Here's where we call Kandy's functions.
  */
 function toggleLogin() {
-        
+
         username=document.getElementById('username').value;
        kandy.login(projectAPIKey, username, password, onLoginSuccess, onLoginFailure);
+
 }
 
 // What to do on a successful login.
@@ -82,10 +80,4 @@ function onLoginSuccess() {
 // What to do on a failed login.
 function onLoginFailure() {
     console.log("Login failed.");
-}
-
-// What to do on a succesful logout.
-function onLogoutSuccess() {
-    console.log("Logout was successful.");
-    isLoggedIn = false;
 }
