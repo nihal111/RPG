@@ -25,12 +25,17 @@ kandy.setup({
 
 // What to do on a successful login.
 function onLoginSuccess() {
-    console.log("Login was successful.");
+    log("Login was successful.");
 }
 
 // What to do on a failed login.
 function onLoginFailure() {
-    console.log("Login failed. Make sure you input the user's credentials!");
+    log("Login failed. Make sure you input the user's credentials!");
+}
+
+// Utility function for appending messages to the message div.
+function log(message) {
+    document.getElementById("messages").innerHTML += "<div>" + message + "</div>";
 }
 
 // Variable to keep track of video display status.
