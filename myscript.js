@@ -32,38 +32,18 @@ function onCallInitiated(call, callee) {
     callMade = call.getId();
 }
 
-function onCallInitiateFailed() {
-    console.log("Call initiation failed!");
-}
-
 function onCallIncoming(call) {
     console.log("Call incoming");
     callReceived = call.getId();
     answerCall(callReceived);
-}
-
-function onCallAnswered() {
-    console.log("Call answered");
-}
-
-function onCallAnswerFailed() {
-    console.log("Call answering failed");
-}
+}   
 
 function onCallEnded(call) {
     console.log("Call Ended");
 }
 
-function onCallEndFailed() {
-    console.log("Call end failed");
-}
-
 function onCallEstablished(call) {
     console.log("Call established");
-}
-
-function onCallStateChanged() {
-    console.log("Call state changed");
 }
 
 // Setup at the start of the application.
@@ -72,21 +52,15 @@ kandy.setup({
     // Events to listen for.
     listeners: {
         callinitiated: onCallInitiated,
-        callinitiatefailed: onCallInitiateFailed,
         callincoming: onCallIncoming,
-        callanswered: onCallAnswered,
-        callanswerfailed: onCallAnswerFailed,
         callended: onCallEnded,
-        callendfailed: onCallEndFailed,
         callestablished: onCallEstablished,
-        callstatechanged: onCallStateChanged
     },
 
 });
 
 // Status of the user.
 var isLoggedIn = false;
-
 /*
  * Log the user in / out depending on current status.
  * Here's where we call Kandy's functions.
