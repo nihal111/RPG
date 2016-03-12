@@ -16,10 +16,6 @@ kandy.setup({
         callincoming: onCallIncoming,
         callanswered: onCallAnswered,
         callanswerfailed: onCallAnswerFailed,
-        callrejected: onCallRejected,
-        callrejectfailed: onCallRejectFailed,
-        callhold: onCallHold,
-        callunhold: onCallUnHold,
         callended: onCallEnded,
         callendfailed: onCallEndFailed,
         callestablished: onCallEstablished,
@@ -30,6 +26,7 @@ kandy.setup({
 
 // Status of the user.
 var isLoggedIn = false;
+var callMade, callReceived;
 
 /*
  * Log the user in / out depending on current status.
@@ -43,24 +40,80 @@ function toggleLogin() {
    }
 }
 
-// Utility function for appending messages to the message div.
-function log(message) {
-    document.getElementById("messages").innerHTML += "<div>" + message + "</div>";
-}
-
 // What to do on a successful login.
 function onLoginSuccess() {
-    log("Login was successful.");
+    console.log("Login was successful.");
     isLoggedIn = true;
 }
 
 // What to do on a failed login.
 function onLoginFailure() {
-    log("Login failed.");
+    console.log("Login failed.");
 }
 
 // What to do on a succesful logout.
 function onLogoutSuccess() {
-    log("Logout was successful.");
+    console.log("Logout was successful.");
     isLoggedIn = false;
+}
+
+function onCallInitiated(call, callee) {
+    console.log("Call initiated with"+callee);
+    callMade = call.getId();
+}
+
+function onCallInitiateFailed() {
+    console.log("Call initiation failed!");
+}
+
+function onCallIncoming(call) {
+    console.log("Call incoming");
+    callReceived = call.getId();
+    answerCall(callReceived);
+}
+
+function onCallAnswered() {
+    console.log("Call answered");
+}
+
+function onCallAnswerFailed() {
+    console.log("Call answering failed");
+}
+
+function onCallEnded(call) {
+    console.log("Call Ended");
+}
+
+function onCallEndFailed() {
+    console.log("Call end failed");
+}
+
+function onCallEstablished(call) {
+    console.log("Call established");
+}
+
+function onCallStateChanged() {
+    console.log("Call state changed");
+}
+
+function makeCall(userid) {
+    kandy.call.makecall(userid, false);
+}
+
+function answerCall(callId) {
+    kandy.call.answerCall(callId, false)
+}
+
+function endCall() {
+    try {
+        kandy.call.endCall(callMade);
+    } catch {
+        console.log("Call made to nahi kata");
+    }
+
+    try {
+        kandy.call.endCall(callReceived);
+    } catch {
+        console.log("Call received to nahi kata");
+    }
 }
