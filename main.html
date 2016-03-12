@@ -183,33 +183,7 @@
           eg:: If user is authenticated, the relevant DOM elements are brought to screen
           and the rest are hidden. Using this method is NOT recommended!
       */
-      
-      
-        // Event handler for login form button
-      var userArray = [];
-      $('#login-btn').on('click', function(e) {
-        e.preventDefault();
-      
-        // Values extracted from login form
-        username = $('#username').val();
-        var apiKey = $('#api_key').val();
-        var password = $('#password').val();
-      
-        /** login(domainApiId, userName, password,success,failure)
-            logs in user to Kandy Platform
-            @params <string> domainApiId, <string> userName, <string> password, <function> success/failure
-        */
-        kandy.login(apiKey, username, password,function(msg){
-      
-               userArray.push(username);
-               kandy.getLastSeen(userArray);
-               UIState.authenticated();
-           },	
-           function(msg){
-               UIState.unauthenticated();
-               alert('Login Failed!');
-           });
-      });// Event handler for logout button
+
       $('#logout-btn').on('click', function(e) {
         e.preventDefault();
         /** logout(success) logs a user out of the Kandy Platform
