@@ -66,6 +66,7 @@ kandy.setup({
 function toggleLogin() {
     username=document.getElementById('username').value;
     saveData(username,password);
+
     kandy.login(projectAPIKey, username, password, onLoginSuccess, onLoginFailure);
 }
 
@@ -81,6 +82,8 @@ function onLoginSuccess() {
 // What to do on a failed login.
 function onLoginFailure() {
     console.log("Login failed.");
+    $('#container').waitMe('hide');
+    alert("Invalid username or password!");
 }
 
 function saveData(user, pass) {

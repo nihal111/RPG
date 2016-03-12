@@ -7,6 +7,10 @@
 
 	<!-- Google Fonts -->
 	<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700|Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+	<link type="text/css" rel="stylesheet" href="css/waitMe.css">
+	<script src="js/waitMe.js"></script>
 
 	<link rel="stylesheet" href="css/animate.css">
 	<!-- Custom Stylesheet -->
@@ -14,11 +18,11 @@
 	<script src="https://kandy-portal.s3.amazonaws.com/public/javascript/kandy/2.5.0/kandy.js"></script>
 	<script src="login.js"></script>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	
 </head>
 
 <body>
-	<div class="container">
+	<div class="container" id="container">
 		<div class="top">
 			<h1 id="title" class="hidden"><span id="logo">Awesome <span>RPG</span></span></h1>
 		</div>
@@ -34,7 +38,7 @@
 			<br/>
 			<input type="password" id="password">
 			<br/>
-			<button type="submit" onclick="toggleLogin();">Sign in</button>
+			<button type="submit" id ="submit" onclick="toggleLogin();">Sign in</button>
 			<br/>
 			<a href="#"><p class="small">Forgot your password?</p></a>
 		</div>
@@ -57,6 +61,50 @@
 	});
 	$('#password').blur(function() {
 		$('label[for="password"]').removeClass('selected');
+	});
+
+	$(function(){
+
+	// none, bounce, rotateplane, stretch, orbit, 
+	// roundBounce, win8, win8_linear or ios
+	var current_effect = 'roundBounce'; // 
+
+	$('#submit').click(function(){
+	run_waitMe(current_effect);
+	});
+
+	function run_waitMe(effect){
+
+	$('#container').waitMe({
+	//none, rotateplane, stretch, orbit, roundBounce, win8, 
+	//win8_linear, ios, facebook, rotation, timer, pulse, 
+	//progressBar, bouncePulse or img
+	effect: 'roundBounce',
+
+	//place text under the effect (string).
+	text: 'Logging In...',
+
+	//background for container (string).
+	bg: 'rgba(255,255,255,0.7)',
+
+	//color for background animation and text (string).
+	color: '#000',
+
+	//change width for elem animation (string).
+	sizeW: '',
+
+	//change height for elem animation (string).
+	sizeH: '',
+
+	// url to image
+	source: '',
+
+	// callback
+	onClose: function() {}
+
+	});
+	}
+		
 	});
 </script>
 
