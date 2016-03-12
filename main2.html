@@ -23,8 +23,80 @@
     <link rel="stylesheet" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/pink/pace-theme-minimal.css" />
 
     <script type="text/javascript">
-      $(function() {
-        var callId, username;
+
+       
+
+        $(function() {
+        
+
+         var callId, username;
+
+         $('#yes').click(function() {
+        question(true);
+    });
+          $('#no').click(function() {
+       question(false);
+    });
+
+          function display(){
+        document.getElementById('question').style.visibility = "visible";
+
+        switch(username)
+        {
+          case "cheeku":
+              document.getElementById('ask').innerHTML="How did Cron respond to you?";
+              document.getElementById('yes').innerHTML="Good";
+              document.getElementById('no').innerHTML="Bad";
+              break;
+          case "arpan":
+              document.getElementById('ask').innerHTML="Did you like this converstion?";
+              document.getElementById('yes').innerHTML="Yes";
+              document.getElementById('no').innerHTML="No";
+              break;
+          case "trehan":
+              document.getElementById('ask').innerHTML="You get jealous. You are way into the woods. You have an axe in your hands. Debian's back is facing on you. It's your chance to kill him.";
+              document.getElementById('yes').innerHTML="Yes";
+              document.getElementById('no').innerHTML="No";
+              break;
+          case "nihal":
+              document.getElementById('ask').innerHTML="Did you like this converstion?";
+              document.getElementById('yes').innerHTML="Yes";
+              document.getElementById('no').innerHTML="No";
+              break;
+        }
+      }
+
+        function question(bool){
+            if(bool)
+              console.log("True");
+            else if (!bool)
+              console.log("False");
+
+            if(username=="cheeku" )
+            { 
+              if(bool==true)
+                var data = {choice_no:'0', value:'1'}
+              else
+                var data = {choice_no:'0', value:'0'}
+
+        $.ajax({
+          url:'http://www.kibo.in/app/hackathon',
+          method: 'get',
+          crossDomain: true,
+          dataType: 'jsonp',
+          callback: 'callback',
+          data:data,
+          success:function(data) {
+         
+          }
+        });
+
+            }
+
+        document.getElementById('proceed').style.visibility = "visible";
+        document.getElementById('question').style.visibility = "hidden";
+        
+        }
 
         // Create audio objects to play incoming calls and outgoing calls sound
       var $audioRingIn = $('<audio>', { loop: 'loop', id: 'ring-in' });
@@ -64,7 +136,7 @@
             callinitiated: onCallInitiate,
             callinitiatefailed: onCallInitiateFail,
             callincoming: onCallIncoming,
-        	callestablished: onCallEstablished,
+          callestablished: onCallEstablished,
             oncall: onCall,
             callended: onCallTerminate,
             callendfailed: onCallEndedFailed
@@ -96,7 +168,9 @@
         $('#call-form, .call-initializer').removeClass('hidden')
       };
 
-      	  // Event handler for callinitiate
+      var toCall = false;
+
+          // Event handler for callinitiate
       function onCallInitiate(call) {
         callId = call.getId();
 
@@ -146,32 +220,34 @@
         $audioRingIn[0].pause();
 
         UIState.initial();
+
+        display();
       }
 
-
+  
         // What to do for an incoming call.
-		function onCallIncoming(call) {
-		    console.log("Incoming call from " + call.callerNumber);
+    function onCallIncoming(call) {
+        console.log("Incoming call from " + call.callerNumber);
 
-		    // Store the call id, so the callee has access to it.
-		    callId = call.getId();
-		    kandy.call.answerCall(callId, true);
+        // Store the call id, so the callee has access to it.
+        callId = call.getId();
+        kandy.call.answerCall(callId, true);
 
-		    // Handle UI changes. A call is incoming.
-		    document.getElementById("accept-call").disabled = false;
-		    document.getElementById("decline-call").disabled = false;
+        // Handle UI changes. A call is incoming.
+        document.getElementById("accept-call").disabled = false;
+        document.getElementById("decline-call").disabled = false;
 
-		}
+    }
 
-		function onCallEstablished(call) {
-		    console.log("Call established.");
+    function onCallEstablished(call) {
+        console.log("Call established.");
 
-		    // Handle UI changes. Call in progress.
-		    document.getElementById("make-call").disabled = true;
-		    document.getElementById("mute-call").disabled = false;
-		    document.getElementById("hold-call").disabled = false;
-		    document.getElementById("end-call").disabled = false;
-		}
+        // Handle UI changes. Call in progress.
+        document.getElementById("make-call").disabled = true;
+        document.getElementById("mute-call").disabled = false;
+        document.getElementById("hold-call").disabled = false;
+        document.getElementById("end-call").disabled = false;
+    }
 
 
 
@@ -182,40 +258,91 @@
         }
 
         // What to do on a successful login.
-		function onLoginSuccess() {
-		    console.log("Login was successful.");
+    function onLoginSuccess() {
+        console.log("Login was successful.");
+        if(toCall) {
+          $("#initialize-call-btn").click();
+        }
+    }
 
-		}
-
-		// What to do on a failed login.
-		function onLoginFailure() {
-		    console.log("Login failed. Make sure you input the user's credentials!");
-		}
+    // What to do on a failed login.
+    function onLoginFailure() {
+        console.log("Login failed. Make sure you input the user's credentials!");
+    }
 
         projectAPIKey = "DAK37713725dc7242e9acda3d88e68aa132";
 
-        function loadData() {
-		   var account = localStorage.getItem('_account');
-		   if (!account)
-		   {
-		    username="arpan"
-		    password="nihal111"
-		   }
-		   else
-		   {
-		   //decodes a string data encoded using base-64
-		   account = atob(account);
-		   //parses to Object the JSON string
-		   account = JSON.parse(account);
-		   //do what you need with the Object
-		   username=account.User;
-		   password=account.Pass;
-		    }
-		    console.log("loading "+username+" "+password);
-		    $('#username').text(username);
-		   kandy.login(projectAPIKey, username, password, onLoginSuccess, onLoginFailure);
+        
 
-		}
+        function loadData() {
+        document.getElementById('proceed').style.visibility = "hidden";
+        document.getElementById('question').style.visibility = "hidden";
+       var account = localStorage.getItem('_account');
+       if (!account)
+       {
+        username="arpan"
+        password="nihal111"
+       }
+       else
+       {
+          //decodes a string data encoded using base-64
+          account = atob(account);
+          //parses to Object the JSON string
+          account = JSON.parse(account);
+          //do what you need with the Object
+          username=account.User;
+          password=account.Pass;
+        }
+        console.log("loading "+username+" "+password);
+        $('#username').text(username);
+        document.getElementById("username_span").innerHTML=username;
+        kandy.login(projectAPIKey, username, password, onLoginSuccess, onLoginFailure);
+
+        var users = ["", 'arpan', 'nihal', 'trehan', 'cheeku'];
+        if(username == 'arpan')
+          var data = {stage:'1', index:'1'}
+        if(username == 'nihal')
+          var data = {stage:'1', index:'2'}
+        if(username == 'trehan')
+          var data = {stage:'1', index:'3'}
+        if(username == 'cheeku')
+          var data = {stage:'1', index:'4'}
+
+        $.ajax({
+          url:'http://www.kibo.in/app/test',
+          method: 'get',
+          crossDomain: true,
+          dataType: 'jsonp',
+          callback: 'callback',
+          data:data,
+          success:function(data) {
+            json_string = JSON.stringify(data);
+            json = JSON.parse(json_string);
+            console.log("first="+json.first);
+            console.log("second="+json.second);
+            if(username == users[parseInt(json.first)]) {
+              toCall = true;
+              if(users[parseInt(json.second)] == 'arpan') {
+                $("#user_to_call").val("arpan@ferozepur.gmail.com");
+                document.getElementById("username_span").innerHTML=username+" and arpan";
+              }
+              if(users[parseInt(json.second)] == 'nihal') {
+                $("#user_to_call").val("nihal@ferozepur.gmail.com");
+                document.getElementById("username_span").innerHTML=username+" and nihal";
+              }
+              if(users[parseInt(json.second)] == 'trehan') {
+                $("#user_to_call").val("trehan@ferozepur.gmail.com");
+                document.getElementById("username_span").innerHTML=username+" and trehan";
+              }
+              if(users[parseInt(json.second)] == 'cheeku') {
+                $("#user_to_call").val("cheeku@ferozepur.gmail.com");
+                document.getElementById("username_span").innerHTML=username+" and cheeku";
+              }
+            }
+          }
+        });
+
+    }
         window.onload = loadData;
 
         /** UIState is a custom piece of code that shuffles between UI states
@@ -275,6 +402,9 @@
 
       });
     </script>
+
+
+
   </head>
   <body>
     <div class="container">
@@ -285,7 +415,7 @@
             <hr />
             <div class="clearfix">
               <p class="h4 pull-left">
-                <strong>Hello <span class="username"></span></strong>
+                <strong><span id="username_span" class="username"></span></strong>
               </p>
               <button class="btn btn-danger pull-right" id="logout-btn">Logout</button>
             </div>
@@ -331,7 +461,19 @@
           </div>
         </div>
       </div>
-    </div><br><br>
-    <center><button class="btn btn-success" onclick="location.href='index3'">Proceed</button></center>
+    </div>
+    <br><br>
+
+    <div id ="question">
+      <center>
+        <h3 id="ask"></h3>
+        <button class="btn btn-success" id="yes">Yes</button>&nbsp&nbsp&nbsp
+        <button class="btn btn-success" id="no">No</button>
+      </center>
+    </div>
+
+    <div id="proceed">
+      <center><button class="btn btn-success" onclick="location.href='index3'">Proceed</button></center>
+    </div>
   </body>
 </html>
