@@ -71,7 +71,31 @@
           }
         });
       	
-
+       var username, UIState = {};
+      
+      UIState.authenticated = function() {
+        $('#login-form').addClass('hidden');
+        $('#logged-in').removeClass('hidden');
+        $('.username').text(username);
+      };
+      
+      UIState.unauthenticated = function() {
+        $('#login-form').removeClass('hidden');
+        $('#logged-in').addClass('hidden');
+        $('.username').text('');
+      };
+      
+      UIState.initial = function() {
+        console.log('initial');
+      
+        $audioRingIn[0].pause();
+        $audioRingOut[0].pause();
+      
+        $('#call-form p, #incoming-call p, #call-connected p').text('');
+        $('#incoming-call, #call-connected, .call-terminator, #resume-call-btn').addClass('hidden');
+        $('#call-form, .call-initializer').removeClass('hidden')
+      };
+      
       	  // Event handler for callinitiate
       function onCallInitiate(call) {
         callId = call.getId();
@@ -160,30 +184,7 @@
           and the rest are hidden. Using this method is NOT recommended!
       */
       
-      var username, UIState = {};
       
-      UIState.authenticated = function() {
-        $('#login-form').addClass('hidden');
-        $('#logged-in').removeClass('hidden');
-        $('.username').text(username);
-      };
-      
-      UIState.unauthenticated = function() {
-        $('#login-form').removeClass('hidden');
-        $('#logged-in').addClass('hidden');
-        $('.username').text('');
-      };
-      
-      UIState.initial = function() {
-        console.log('initial');
-      
-        $audioRingIn[0].pause();
-        $audioRingOut[0].pause();
-      
-        $('#call-form p, #incoming-call p, #call-connected p').text('');
-        $('#incoming-call, #call-connected, .call-terminator, #resume-call-btn').addClass('hidden');
-        $('#call-form, .call-initializer').removeClass('hidden')
-      };
         // Event handler for login form button
       var userArray = [];
       $('#login-btn').on('click', function(e) {
