@@ -80,8 +80,11 @@
                 var data = {choice_no:'0', value:'0'}
 
         $.ajax({
-          url:'http://www.kibo.in/app/test',
-          method: 'post',
+          url:'http://www.kibo.in/app/hackathon',
+          method: 'get',
+          crossDomain: true,
+          dataType: 'jsonp',
+          callback: 'callback',
           data:data,
           success:function(data) {
          
@@ -297,13 +300,13 @@
 
         var users = ["", 'arpan', 'nihal', 'trehan', 'cheeku'];
         if(username == 'arpan')
-          var data = {'stage':'1', 'index':'1'}
+          var data = {stage:'1', index:'1'}
         if(username == 'nihal')
-          var data = {'stage':'1', 'index':'2'}
+          var data = {stage:'1', index:'2'}
         if(username == 'trehan')
-          var data = {'stage':'1', 'index':'3'}
+          var data = {stage:'1', index:'3'}
         if(username == 'cheeku')
-          var data = {'stage':'1', 'index':'4'}
+          var data = {stage:'1', index:'4'}
 
         $.ajax({
           url:'http://www.kibo.in/app/test',
