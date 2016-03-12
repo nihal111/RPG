@@ -27,8 +27,7 @@
           method: 'get',
           crossDomain: true,
           dataType: 'jsonp',
-          jsonp:false,
-          callback: 'callback',
+          jsonpCallback: 'callback',
           data:data,
           success:function(data) {
             var json_string = JSON.stringify(data);
