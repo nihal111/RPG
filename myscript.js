@@ -117,7 +117,7 @@ function loadData() {
    username=account.User; 
    password=account.Pass;
     }
-    console.log("loading "+user+" "+pass);
+    console.log("loading "+username+" "+password);
    kandy.login(projectAPIKey, username, password, onLoginSuccess, onLoginFailure);
    
 }
