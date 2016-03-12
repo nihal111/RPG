@@ -64,10 +64,8 @@ kandy.setup({
  * Here's where we call Kandy's functions.
  */
 function toggleLogin() {
-
-        username=document.getElementById('username').value;
-       kandy.login(projectAPIKey, username, password, onLoginSuccess, onLoginFailure);
-
+    username=document.getElementById('username').value;
+    kandy.login(projectAPIKey, username, password, onLoginSuccess, onLoginFailure);
 }
 
 // What to do on a successful login.
