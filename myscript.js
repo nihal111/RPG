@@ -198,4 +198,4 @@ function loadData() {
    
 }
 
-window.onLoad = loadData;
+window.onload = loadData;
