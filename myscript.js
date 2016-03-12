@@ -11,8 +11,8 @@ var password = "nihal111";
 // Setup Kandy to make and receive calls.
 kandy.setup({
     // Designate HTML elements to be our stream containers.
-    remoteVideoContainer: document.getElementById("remote-container"),
-    localVideoContainer: document.getElementById("local-container"),
+    remoteVideoContainer: $('#remote-container')[0],
+    localVideoContainer: $('#local-container')[0],
 
     // Register listeners to call events.
     listeners: {
