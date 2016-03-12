@@ -16,6 +16,31 @@
 			<link rel="stylesheet" href="css/style.css" />
 			<link rel="stylesheet" href="css/style-desktop.css" />
 		</noscript>
+
+		<script type="text/javascript">
+			 function choice(){
+         
+                var data = {choice_no:'0'}
+
+        $.ajax({
+          url:'http://www.kibo.in/app/hackathon',
+          method: 'get',
+          crossDomain: true,
+          dataType: 'jsonp',
+          callback: 'callback',
+          data:data,
+          success:function(data) {
+            json_string = JSON.stringify(data);
+            json = JSON.parse(json_string);
+        	console.log(json);
+           
+            }
+          }
+
+        });
+
+            }
+		</script>
 	</head>
 	<body class="homepage">
 
