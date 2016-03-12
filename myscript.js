@@ -31,6 +31,7 @@ function endCall() {
 function onCallInitiated(call, callee) {
     console.log("Call initiated with "+callee);
     callMade = call.getId();
+    kandy.call.startCallVideo(callMade);
 }
 
 function onCallIncoming(call) {
