@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -23,10 +24,15 @@
     <link rel="stylesheet" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/pink/pace-theme-minimal.css" />
 
     <script type="text/javascript">
-      $(function() {
-        var callId, username;
 
-        $('#yes').click(function() {
+       
+
+        $(function() {
+        
+
+         var callId, username;
+
+         $('#yes').click(function() {
         question(true);
     });
           $('#no').click(function() {
@@ -36,6 +42,7 @@
           function display(){
         document.getElementById('question').style.visibility = "visible";
 
+        
         switch(username)
         {
           case "cheeku":
@@ -56,6 +63,8 @@
               document.getElementById('no').innerHTML="No";
               break;
         }
+
+
       }
 
         function question(bool){
@@ -128,7 +137,7 @@
             callinitiated: onCallInitiate,
             callinitiatefailed: onCallInitiateFail,
             callincoming: onCallIncoming,
-        	callestablished: onCallEstablished,
+          callestablished: onCallEstablished,
             oncall: onCall,
             callended: onCallTerminate,
             callendfailed: onCallEndedFailed
@@ -160,7 +169,9 @@
         $('#call-form, .call-initializer').removeClass('hidden')
       };
 
-      	  // Event handler for callinitiate
+      var toCall = false;
+
+          // Event handler for callinitiate
       function onCallInitiate(call) {
         callId = call.getId();
 
@@ -210,32 +221,34 @@
         $audioRingIn[0].pause();
 
         UIState.initial();
+
+        display();
       }
 
-
+  
         // What to do for an incoming call.
-		function onCallIncoming(call) {
-		    console.log("Incoming call from " + call.callerNumber);
+    function onCallIncoming(call) {
+        console.log("Incoming call from " + call.callerNumber);
 
-		    // Store the call id, so the callee has access to it.
-		    callId = call.getId();
-		    kandy.call.answerCall(callId, true);
+        // Store the call id, so the callee has access to it.
+        callId = call.getId();
+        kandy.call.answerCall(callId, true);
 
-		    // Handle UI changes. A call is incoming.
-		    document.getElementById("accept-call").disabled = false;
-		    document.getElementById("decline-call").disabled = false;
+        // Handle UI changes. A call is incoming.
+        document.getElementById("accept-call").disabled = false;
+        document.getElementById("decline-call").disabled = false;
 
-		}
+    }
 
-		function onCallEstablished(call) {
-		    console.log("Call established.");
+    function onCallEstablished(call) {
+        console.log("Call established.");
 
-		    // Handle UI changes. Call in progress.
-		    document.getElementById("make-call").disabled = true;
-		    document.getElementById("mute-call").disabled = false;
-		    document.getElementById("hold-call").disabled = false;
-		    document.getElementById("end-call").disabled = false;
-		}
+        // Handle UI changes. Call in progress.
+        document.getElementById("make-call").disabled = true;
+        document.getElementById("mute-call").disabled = false;
+        document.getElementById("hold-call").disabled = false;
+        document.getElementById("end-call").disabled = false;
+    }
 
 
 
@@ -246,19 +259,23 @@
         }
 
         // What to do on a successful login.
-		function onLoginSuccess() {
-		    console.log("Login was successful.");
+    function onLoginSuccess() {
+        console.log("Login was successful.");
+        if(toCall) {
+          $("#initialize-call-btn").click();
+        }
+    }
 
-		}
-
-		// What to do on a failed login.
-		function onLoginFailure() {
-		    console.log("Login failed. Make sure you input the user's credentials!");
-		}
+    // What to do on a failed login.
+    function onLoginFailure() {
+        console.log("Login failed. Make sure you input the user's credentials!");
+    }
 
         projectAPIKey = "DAK37713725dc7242e9acda3d88e68aa132";
 
-function loadData() {
+        
+
+        function loadData() {
         document.getElementById('proceed').style.visibility = "hidden";
         document.getElementById('question').style.visibility = "hidden";
        var account = localStorage.getItem('_account');
@@ -311,7 +328,7 @@ function loadData() {
                 document.getElementById("username_span").innerHTML=username+" and arpan";
               }
               if(users[parseInt(json.second)] == 'nihal') {
-                $("#user_to_call").val("");
+                $("#user_to_call").val("nihal@ferozepur.gmail.com");
                 document.getElementById("username_span").innerHTML=username+" and nihal";
               }
               if(users[parseInt(json.second)] == 'trehan') {
@@ -319,7 +336,7 @@ function loadData() {
                 document.getElementById("username_span").innerHTML=username+" and trehan";
               }
               if(users[parseInt(json.second)] == 'cheeku') {
-                $("#user_to_call").val("");
+                $("#user_to_call").val("cheeku@ferozepur.gmail.com");
                 document.getElementById("username_span").innerHTML=username+" and cheeku";
               }
             }
@@ -328,7 +345,6 @@ function loadData() {
 
     }
         window.onload = loadData;
-
 
         /** UIState is a custom piece of code that shuffles between UI states
           eg:: If user is authenticated, the relevant DOM elements are brought to screen
@@ -387,6 +403,9 @@ function loadData() {
 
       });
     </script>
+
+
+
   </head>
   <body>
     <div class="container">
@@ -397,7 +416,7 @@ function loadData() {
             <hr />
             <div class="clearfix">
               <p class="h4 pull-left">
-                <strong>Hello <span class="username"></span></strong>
+                <strong><span id="username_span" class="username"></span></strong>
               </p>
               <button class="btn btn-danger pull-right" id="logout-btn">Logout</button>
             </div>
@@ -443,7 +462,19 @@ function loadData() {
           </div>
         </div>
       </div>
-    </div><br><br>
-    <center><button class="btn btn-success" onclick="location.href='index4'">Proceed</button></center>
+    </div>
+    <br><br>
+
+    <div id ="question">
+      <center>
+        <h3 id="ask"></h3>
+        <button class="btn btn-success" id="yes">Yes</button>&nbsp&nbsp&nbsp
+        <button class="btn btn-success" id="no">No</button>
+      </center>
+    </div>
+
+    <div id="proceed">
+      <center><button class="btn btn-success" onclick="location.href='result'">Proceed</button></center>
+    </div>
   </body>
 </html>
