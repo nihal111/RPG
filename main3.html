@@ -46,6 +46,9 @@
         switch(username)
         {
           case "cheeku":
+              document.getElementById('ask').innerHTML="Did you enjoy playing?";
+              document.getElementById('yes').innerHTML="Yes";
+              document.getElementById('no').innerHTML="No";
               break;
           case "arpan":
               document.getElementById('ask').innerHTML="Do you turn Cron in to the police?";
@@ -298,6 +301,12 @@
         $('#username').text(username);
         document.getElementById("username_span").innerHTML=username;
         kandy.login(projectAPIKey, username, password, onLoginSuccess, onLoginFailure);
+
+
+        if(username=="cheeku" || username=="nihal")
+        {
+          display();
+        }
 
         var users = ["", 'arpan', 'nihal', 'trehan', 'cheeku'];
         if(username == 'arpan')
