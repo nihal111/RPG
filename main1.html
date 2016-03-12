@@ -82,9 +82,6 @@
         $.ajax({
           url:'http://www.kibo.in/app/test',
           method: 'post',
-          crossDomain: true,
-          dataType: 'jsonp',
-          callback: 'callback',
           data:data,
           success:function(data) {
          
@@ -276,7 +273,7 @@
 
         function loadData() {
         document.getElementById('proceed').style.visibility = "hidden";
-        document.getElementById('question').style.visibility = "visible";
+        document.getElementById('question').style.visibility = "hidden";
 		   var account = localStorage.getItem('_account');
 		   if (!account)
 		   {
@@ -466,7 +463,7 @@
 
     <div id ="question">
       <center>
-        <h3 id="ask">Yo</h3>
+        <h3 id="ask"></h3>
         <button class="btn btn-success" id="yes">Yes</button>&nbsp&nbsp&nbsp
         <button class="btn btn-success" id="no">No</button>
       </center>
