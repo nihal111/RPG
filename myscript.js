@@ -6,7 +6,8 @@ var password = "nihal111";
 var callMade, callReceived;
 
 function makeCall(userid) {
-    kandy.call.makecall(userid, false);
+    fulluserid = userid + '@ferozepur.gmail.com';
+    kandy.call.makecall(fulluserid, false);
 }
 
 function answerCall(callId) {
