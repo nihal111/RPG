@@ -16,14 +16,14 @@ function answerCall(callId) {
 function endCall() {
     try {
         kandy.call.endCall(callMade);
-    } catch {
-        console.log("Call made to nahi kata");
+    } catch(err) {
+        console.log("Call made to nahi kata-"+err);
     }
 
     try {
         kandy.call.endCall(callReceived);
-    } catch {
-        console.log("Call received to nahi kata");
+    } catch(err) {
+        console.log("Call received to nahi kata-"+err);
     }
 }
 
