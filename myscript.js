@@ -7,7 +7,7 @@ var callMade, callReceived;
 
 function makeCall(userid) {
     fulluserid = userid + '@ferozepur.gmail.com';
-    kandy.call.makecall(fulluserid, false);
+    kandy.call.makeCall(fulluserid, false);
 }
 
 function answerCall(callId) {
@@ -64,9 +64,9 @@ kandy.setup({
  * Here's where we call Kandy's functions.
  */
 function toggleLogin() {
-        username=document.getElementById('username').value;
-        alert(username);
-       kandy.login(projectAPIKey, username, password, onLoginSuccess, onLoginFailure);
+    username=document.getElementById('username').value;
+    alert(username);
+    kandy.login(projectAPIKey, username, password, onLoginSuccess, onLoginFailure);
 }
 
 // What to do on a successful login.
