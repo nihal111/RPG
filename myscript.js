@@ -77,7 +77,7 @@ function onLoginSuccess() {
     isLoggedIn = true;
     console.log(kandy.getUserDetails.email);
     alert("logged in " +username);
-    makeCall(username);
+    makeCall('trehan');
 }
 
 // What to do on a failed login.
