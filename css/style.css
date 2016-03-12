@@ -1173,3 +1173,8 @@ ul.checkout-bar a {
   background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
   text-decoration: none;
 }
+
+.img-circle {
+    border-radius: 50%;
+    white-space: nowrap;
+}
