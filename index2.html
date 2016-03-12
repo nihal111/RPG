@@ -30,8 +30,10 @@
           jsonpCallback: '',
           data:data,
           success:function(data) {
-       
-        	console.log(data.value);
+       		json_string = JSON.stringify(data);
+            json = JSON.parse(json_string);
+            console.log(json.value);
+        	
            
             }
         });
