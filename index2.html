@@ -27,13 +27,20 @@
           method: 'get',
           crossDomain: true,
           dataType: 'jsonp',
-          jsonpCallback: '',
+          callback: 'callback',
           data:data,
           success:function(data) {
+<<<<<<< HEAD
        		json_string = JSON.stringify(data);
             json = JSON.parse(json_string);
             console.log(json.value);
         	
+=======
+          	alert(data);
+            var json_string = JSON.stringify(data);
+            var json = JSON.parse(json_string);
+        	alert(json);
+>>>>>>> fc3a6be75b1e32f9da18d1fb5bed9d9913ca369b
            
             }
         });
