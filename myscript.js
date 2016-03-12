@@ -78,7 +78,7 @@ function onLoginSuccess() {
 
     console.log("Login was successful.");
     isLoggedIn = true;
-    location.href='/main'
+    location.href='main'
 }
 
 // What to do on a failed login.
