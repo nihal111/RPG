@@ -95,7 +95,7 @@
         $('#incoming-call, #call-connected, .call-terminator, #resume-call-btn').addClass('hidden');
         $('#call-form, .call-initializer').removeClass('hidden')
       };
-
+      
       	  // Event handler for callinitiate
       function onCallInitiate(call) {
         callId = call.getId();
@@ -155,7 +155,7 @@
 
 		    // Store the call id, so the callee has access to it.
 		    callId = call.getId();
-		    kandy.call.answerCall(callId, true);
+
 		    // Handle UI changes. A call is incoming.
 		    document.getElementById("accept-call").disabled = false;
 		    document.getElementById("decline-call").disabled = false;
@@ -178,6 +178,41 @@
            console.debug('callendfailed');
            callId = null;
         }
+
+        // What to do on a successful login.
+		function onLoginSuccess() {
+		    console.log("Login was successful.");
+		}
+
+		// What to do on a failed login.
+		function onLoginFailure() {
+		    console.log("Login failed. Make sure you input the user's credentials!");
+		}
+
+        projectAPIKey = "DAK37713725dc7242e9acda3d88e68aa132";
+
+        function loadData() {
+		   var account = localStorage.getItem('_account');
+		   if (!account) 
+		   {
+		    username="arpan"
+		    password="nihal111"
+		   }
+		   else
+		   {
+		   //decodes a string data encoded using base-64
+		   account = atob(account);
+		   //parses to Object the JSON string
+		   account = JSON.parse(account);
+		   //do what you need with the Object
+		   username=account.User; 
+		   password=account.Pass;
+		    }
+		    console.log("loading "+username+" "+password);
+		   kandy.login(projectAPIKey, username, password, onLoginSuccess, onLoginFailure);
+		   
+		}
+        window.onload = loadData;
       
         /** UIState is a custom piece of code that shuffles between UI states
           eg:: If user is authenticated, the relevant DOM elements are brought to screen
