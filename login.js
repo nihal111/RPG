@@ -37,7 +37,7 @@ function onCallIncoming(call) {
     console.log("Call incoming");
     callReceived = call.getId();
     answerCall(callReceived);
-}   
+}
 
 function onCallEnded(call) {
     console.log("Call Ended");
@@ -65,7 +65,6 @@ kandy.setup({
  */
 function toggleLogin() {
     username=document.getElementById('username').value;
-    alert(username);
     saveData(username,password);
     kandy.login(projectAPIKey, username, password, onLoginSuccess, onLoginFailure);
 }
@@ -76,8 +75,7 @@ function onLoginSuccess() {
     console.log("Login was successful for "+username);
     isLoggedIn = true;
     console.log(kandy.getUserDetails.email);
-    alert("logged in " +username);
-    location.href='main'
+    location.href='pilot'
 }
 
 // What to do on a failed login.
@@ -101,7 +99,7 @@ function saveData(user, pass) {
 
 function loadData() {
    var account = localStorage.getItem('_account');
-   if (!account) 
+   if (!account)
    {
     username="arpan"
     password="nihal111"
@@ -114,10 +112,10 @@ function loadData() {
    //parses to Object the JSON string
    account = JSON.parse(account);
    //do what you need with the Object
-   username=account.User; 
+   username=account.User;
    password=account.Pass;
     }
     console.log("loading "+username+" "+password);
    kandy.login(projectAPIKey, username, password, onLoginSuccess, onLoginFailure);
-   
+
 }

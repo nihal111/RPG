@@ -10,14 +10,14 @@
     <meta name="csrf-param" content="authenticity_token" />
     <meta name="csrf-token" content="jcsErriQuavm6dAXW4mRvMjVdEhsTdSzSD3EA3dSWMLCCoVdyX5QDSVCVjsgPFwWPoIHqOD7u96TYc2uXfj13Q==" />
     <link rel="shortcut icon" type="image/x-icon" href="https://developer.kandy.io/assets/favicon-4e6cd320f5d3961133e0a2def7b91e6f.ico" />
-    
+
     <!--Load Bootstrap CSS (optional)-->
     <link rel="stylesheet" media="screen" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
     <link rel="stylesheet" media="screen" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css" />
-    
+
     <!--Load Kandy JS files --><script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
     <script src="https://kandy-portal.s3.amazonaws.com/public/javascript/kandy/2.5.0/kandy.js"></script>
-    
+
     <!--Load Pace AJAX Progress Bar (optional)-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
     <link rel="stylesheet" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/pink/pace-theme-minimal.css" />
@@ -25,11 +25,11 @@
     <script type="text/javascript">
       $(function() {
         var callId, username;
-      
+
         // Create audio objects to play incoming calls and outgoing calls sound
       var $audioRingIn = $('<audio>', { loop: 'loop', id: 'ring-in' });
       var $audioRingOut = $('<audio>', { loop: 'loop', id: 'ring-out' });
-      
+
       // Load audio source to DOM to indicate call events
       var audioSource = {
         ringIn: [
@@ -40,22 +40,22 @@
           { src: 'https://kandy-portal.s3.amazonaws.com/public/sounds/ringout.mp3', type: 'audio/mp3' },
           { src: 'https://kandy-portal.s3.amazonaws.com/public/sounds/ringout.ogg', type: 'audio/ogg' }]
       };
-      
+
       audioSource.ringIn.forEach(function(entry) {
         var $source = $('<source>').attr('src', entry.src);
         $audioRingIn.append($source);
       });
-      
+
       audioSource.ringOut.forEach(function(entry) {
         var $source = $('<source>').attr('src', entry.src);
         $audioRingOut.append($source);
       });
-      
+
         /** setup(config) intializes kandy
           @param <object> config
         */
         kandy.setup({
-          
+
           remoteVideoContainer: $('#incoming-video')[0],
           localVideoContainer: $('#outgoing-video')[0],
           // listeners registers events to handlers
@@ -70,60 +70,60 @@
             callendfailed: onCallEndedFailed
           }
         });
-      	
+
        var username, UIState = {};
-      
+
       UIState.authenticated = function() {
         $('#login-form').addClass('hidden');
         $('#logged-in').removeClass('hidden');
         $('.username').text(username);
       };
-      
+
       UIState.unauthenticated = function() {
         $('#login-form').removeClass('hidden');
         $('#logged-in').addClass('hidden');
         $('.username').text('');
       };
-      
+
       UIState.initial = function() {
         console.log('initial');
-      
+
         $audioRingIn[0].pause();
         $audioRingOut[0].pause();
-      
+
         $('#call-form p, #incoming-call p, #call-connected p').text('');
         $('#incoming-call, #call-connected, .call-terminator, #resume-call-btn').addClass('hidden');
         $('#call-form, .call-initializer').removeClass('hidden')
       };
-      
+
       	  // Event handler for callinitiate
       function onCallInitiate(call) {
         callId = call.getId();
-      
+
         $audioRingIn[0].pause();
         $audioRingOut[0].play();
-      
+
         $('#username-calling').text('Calling ' + $('#user_to_call').val());
         UIState.callinitialized();
       }
-      
+
       // Event handler for callinitiatefail event
       function onCallInitiateFail() {
         console.log("call initiate fail");
-      
+
         $audioRingOut[0].pause();
         UIState.initial();
         alert('call failed');
       }
-      
+
       UIState.callinitialized = function() {
         console.log("Call Initialised");
-      
+
         $('.call-initializer').addClass('hidden');
       };// Event handler for initiate call button
       $('#initialize-call-btn').on('click', function() {
         var username = $('#user_to_call').val();
-      
+
         /** makeCall( userName, cameraOn ) : Void
             Initiates a call to another Kandy user over web
             @params <string> userName, <boolean> cameraOn
@@ -136,18 +136,18 @@
         $audioRingOut[0].pause();
         UIState.oncall();
       }
-      
+
       // Event handler for callended event
       function onCallTerminate(call) {
         console.log("Cancelled");
         callId = null;
-      
+
         $audioRingOut[0].play();
         $audioRingIn[0].pause();
-      
+
         UIState.initial();
       }
-      
+
 
         // What to do for an incoming call.
 		function onCallIncoming(call) {
@@ -196,7 +196,7 @@
 
         function loadData() {
 		   var account = localStorage.getItem('_account');
-		   if (!account) 
+		   if (!account)
 		   {
 		    username="arpan"
 		    password="nihal111"
@@ -208,16 +208,16 @@
 		   //parses to Object the JSON string
 		   account = JSON.parse(account);
 		   //do what you need with the Object
-		   username=account.User; 
+		   username=account.User;
 		   password=account.Pass;
 		    }
 		    console.log("loading "+username+" "+password);
 		    $('#username').text(username);
 		   kandy.login(projectAPIKey, username, password, onLoginSuccess, onLoginFailure);
-		   
+
 		}
         window.onload = loadData;
-      
+
         /** UIState is a custom piece of code that shuffles between UI states
           eg:: If user is authenticated, the relevant DOM elements are brought to screen
           and the rest are hidden. Using this method is NOT recommended!
@@ -235,44 +235,44 @@
           UIState.unauthenticated();
         });
       });
-      
+
       $('#hold-call-btn').on('click', function() {
         kandy.call.holdCall(callId);
         UIState.holdcall();
       });
-      
+
       $('#resume-call-btn').on('click', function() {
         kandy.call.unHoldCall(callId);
         UIState.resumecall();
       });
-      
+
       // Event handler for call end button
       $('#end-call-btn').on('click', function() {
         kandy.call.endCall(callId);
         UIState.initial();
       });
-      
+
       UIState.oncall = function() {
         console.log('oncall');
-      
+
         $('#incoming-call, #call-form').addClass('hidden');
         $('#call-connected').removeClass('hidden');
       };
-      
+
       UIState.holdcall = function() {
         console.log('holdcall');
-      
+
         $('#hold-call-btn').addClass('hidden');
         $('#resume-call-btn').removeClass('hidden');
       };
-      
+
       UIState.resumecall = function() {
         console.log('resumecall');
-      
+
         $('#hold-call-btn').removeClass('hidden');
         $('#resume-call-btn').addClass('hidden');
       };
-      
+
       });
     </script>
   </head>
@@ -311,7 +311,7 @@
               <div class="form-group call-initializer">
                 <label for="user_to_call">Enter Callee Username</label>
                 <input type="text" name="user_to_call" id="user_to_call" class="form-control" placeholder="name@company.com" />
-                
+
               </div>
               <div class="form-group call-initializer">
                 <button class="btn btn-success" id="initialize-call-btn">Call</button>
