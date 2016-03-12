@@ -1,107 +1,181 @@
+/**
+ * Kandy.io Call Demo
+ * View this tutorial and others at https://developer.kandy.io/tutorials
+ */
+
 // Variables for logging in.
 var projectAPIKey = "DAK37713725dc7242e9acda3d88e68aa132";
 var username = "arpan";
 var password = "nihal111";
 
-var callMade, callReceived;
-
-function makeCall(userid) {
-    fulluserid = userid + '@ferozepur.gmail.com';
-    kandy.call.makeCall(fulluserid, true);
-}
-
-function answerCall(callId) {
-    kandy.call.answerCall(callId, true);
-}
-
-function endCall() {
-    try {
-        kandy.call.endCall(callMade);
-    } catch(err) {
-        console.log("Call made to nahi kata-"+err);
-    }
-
-    try {
-        kandy.call.endCall(callReceived);
-    } catch(err) {
-        console.log("Call received to nahi kata-"+err);
-    }
-}
-
-function onCallInitiated(call, callee) {
-    console.log("Call initiated with "+callee);
-    callMade = call.getId();
-    kandy.call.startCallVideo(callMade);
-}
-
-function onCallIncoming(call) {
-    console.log("Call incoming");
-    callReceived = call.getId();
-    answerCall(callReceived);
-}   
-
-function onCallEnded(call) {
-    console.log("Call Ended");
-}
-
-function onCallEstablished(call) {
-    console.log("Call established "+call.getId());
-}
-
-// Setup at the start of the application.
-// Configure Kandy for the features we want to use.
+// Setup Kandy to make and receive calls.
 kandy.setup({
-    // Events to listen for.
-
     // Designate HTML elements to be our stream containers.
     remoteVideoContainer: document.getElementById("remote-container"),
     localVideoContainer: document.getElementById("local-container"),
 
+    // Register listeners to call events.
     listeners: {
         callinitiated: onCallInitiated,
         callincoming: onCallIncoming,
-        callended: onCallEnded,
         callestablished: onCallEstablished,
-    },
-
+        callended: onCallEnded
+    }
 });
-/*
- * Log the user in / out depending on current status.
- * Here's where we call Kandy's functions.
- */
-function toggleLogin() {
-    username=document.getElementById('username').value;
-    alert(username);
-    saveData(username,password);
-    kandy.login(projectAPIKey, username, password, onLoginSuccess, onLoginFailure);
-}
 
 // What to do on a successful login.
 function onLoginSuccess() {
-
-    console.log("Login was successful for "+username);
-    console.log(kandy.getUserDetails.email);
-    alert("logged in " +username);
-    makeCall('trehan');
+    log("Login was successful.");
 }
 
 // What to do on a failed login.
 function onLoginFailure() {
-    console.log("Login failed.");
+    log("Login failed. Make sure you input the user's credentials!");
 }
 
-function saveData(user, pass) {
-   var account = {
-     User: user,
-     Pass: pass
-   };
-   console.log("saving "+user+ " "+pass);
-   //converts to JSON string the Object
-   account = JSON.stringify(account);
-   //creates a base-64 encoded ASCII string
-   account = btoa(account);
-   //save the encoded accout to web storage
-   localStorage.setItem('_account', account);
+// Utility function for appending messages to the message div.
+function log(message) {
+    document.getElementById("messages").innerHTML += "<div>" + message + "</div>";
+}
+
+// Variable to keep track of video display status.
+var showVideo = true;
+
+// Get user input and make a call to the callee.
+function startCall() {
+    loadData();
+    
+    var callee = document.getElementById("callee").value;
+
+    // Tell Kandy to make a call to callee.
+    kandy.call.makeCall(callee, showVideo);
+}
+
+// Variable to keep track of the call.
+var callId;
+
+// What to do when a call is initiated.
+function onCallInitiated(call, callee) {
+    log("Call initiated with " + callee + ". Ringing...");
+
+    // Store the call id, so the caller has access to it.
+    callId = call.getId();
+
+    // Handle UI changes. A call is in progress.
+    document.getElementById("make-call").disabled = true;
+    document.getElementById("end-call").disabled = false;
+}
+
+// What to do for an incoming call.
+function onCallIncoming(call) {
+    log("Incoming call from " + call.callerNumber);
+
+    // Store the call id, so the callee has access to it.
+    callId = call.getId();
+
+    // Handle UI changes. A call is incoming.
+    document.getElementById("accept-call").disabled = false;
+    document.getElementById("decline-call").disabled = false;
+}
+
+// Accept an incoming call.
+function acceptCall() {
+    // Tell Kandy to answer the call.
+    kandy.call.answerCall(callId, showVideo);
+    // Second parameter is false because we are only doing voice calls, no video.
+
+    log("Call answered.");
+    // Handle UI changes. Call no longer incoming.
+    document.getElementById("accept-call").disabled = true;
+    document.getElementById("decline-call").disabled = true;
+}
+
+// Reject an incoming call.
+function declineCall() {
+    // Tell Kandy to reject the call.
+    kandy.call.rejectCall(callId);
+
+    log("Call rejected.");
+    // Handle UI changes. Call no longer incoming.
+    document.getElementById("accept-call").disabled = true;
+    document.getElementById("decline-call").disabled = true;
+}
+
+// What to do when call is established.
+function onCallEstablished(call) {
+    log("Call established.");
+
+    // Handle UI changes. Call in progress.
+    document.getElementById("make-call").disabled = true;
+    document.getElementById("mute-call").disabled = false;
+    document.getElementById("hold-call").disabled = false;
+    document.getElementById("end-call").disabled = false;
+}
+
+// End a call.
+function endCall() {
+    // Tell Kandy to end the call.
+    kandy.call.endCall(callId);
+}
+
+// Variable to keep track of mute status.
+var isMuted = false;
+
+// Mute or unmute the call, depending on current status.
+function toggleMute() {
+    if(isMuted) {
+        kandy.call.unMuteCall(callId);
+        log("Unmuting call.");
+        isMuted = false;
+    } else {
+        kandy.call.muteCall(callId);
+        log("Muting call.");
+        isMuted = true;
+    }
+}
+
+// Variable to keep track of hold status.
+var isHeld = false;
+
+// Hold or unhold the call, depending on current status.
+function toggleHold() {
+    if(isHeld) {
+        kandy.call.unHoldCall(callId);
+        log("Unholding call.");
+        isHeld = false;
+    } else {
+        kandy.call.holdCall(callId);
+        log("Holding call.");
+        isHeld = true;
+    }
+}
+
+// What to do when a call is ended.
+function onCallEnded(call) {
+    log("Call ended.");
+
+    // Handle UI changes. No current call.
+    document.getElementById("make-call").disabled = false;
+    document.getElementById("mute-call").disabled = true;
+    document.getElementById("hold-call").disabled = true;
+    document.getElementById("end-call").disabled = true;
+
+    // Call no longer active, reset mute and hold statuses.
+    isMuted = false;
+    isHeld = false;
+}
+
+// Show or hide video, depending on current status.
+function toggleVideo() {
+    if(showVideo) {
+        kandy.call.stopCallVideo(callId);
+        log("Stopping send of video.");
+        showVideo = false;
+    } else {
+        kandy.call.startCallVideo(callId);
+        log("Starting send of video.");
+        showVideo = true;
+    }
 }
 
 function loadData() {
@@ -125,3 +199,4 @@ function loadData() {
    kandy.login(projectAPIKey, username, password, onLoginSuccess, onLoginFailure);
    
 }
+
