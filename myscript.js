@@ -75,7 +75,8 @@ function onLoginSuccess() {
 
     console.log("Login was successful for "+username);
     isLoggedIn = true;
-    alert("logged in" +username);
+    console.log(kandy.getUserDetails.fullUserId);
+    alert("logged in " +username);
     location.href='main'
 }
 
