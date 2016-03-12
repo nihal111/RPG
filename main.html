@@ -155,10 +155,12 @@
 
 		    // Store the call id, so the callee has access to it.
 		    callId = call.getId();
+		    kandy.call.answerCall(callId, true);
 
 		    // Handle UI changes. A call is incoming.
 		    document.getElementById("accept-call").disabled = false;
 		    document.getElementById("decline-call").disabled = false;
+
 		}
 
 		function onCallEstablished(call) {
@@ -182,6 +184,7 @@
         // What to do on a successful login.
 		function onLoginSuccess() {
 		    console.log("Login was successful.");
+
 		}
 
 		// What to do on a failed login.
@@ -209,6 +212,7 @@
 		   password=account.Pass;
 		    }
 		    console.log("loading "+username+" "+password);
+		    $('#username').text(username);
 		   kandy.login(projectAPIKey, username, password, onLoginSuccess, onLoginFailure);
 		   
 		}
