@@ -53,6 +53,11 @@ function onCallEstablished(call) {
 // Configure Kandy for the features we want to use.
 kandy.setup({
     // Events to listen for.
+
+    // Designate HTML elements to be our stream containers.
+    remoteVideoContainer: document.getElementById("remote-container"),
+    localVideoContainer: document.getElementById("local-container"),
+    
     listeners: {
         callinitiated: onCallInitiated,
         callincoming: onCallIncoming,
