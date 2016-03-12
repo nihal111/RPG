@@ -65,6 +65,7 @@ kandy.setup({
  */
 function toggleLogin() {
     username=document.getElementById('username').value;
+    username=document.getElementById('password').value;
     saveData(username,password);
 
     kandy.login(projectAPIKey, username, password, onLoginSuccess, onLoginFailure);
