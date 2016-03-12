@@ -43,8 +43,6 @@ var showVideo = true;
 
 // Get user input and make a call to the callee.
 function startCall() {
-    loadData();
-    
     var callee = document.getElementById("callee").value;
 
     // Tell Kandy to make a call to callee.
@@ -200,3 +198,4 @@ function loadData() {
    
 }
 
+window.onLoad = loadData;
