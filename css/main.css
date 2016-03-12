@@ -1,3 +1,3 @@
-video {
-  width: 50% !important;
+body {
+	background: url("../images/photo_bg.jpg") no-repeat center center fixed;
 }
