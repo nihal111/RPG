@@ -7,12 +7,11 @@ var callMade, callReceived;
 
 function makeCall(userid) {
     fulluserid = userid + '@ferozepur.gmail.com';
-    kandy.call.makeCall(fulluserid, false);
+    kandy.call.makeCall(fulluserid, true);
 }
 
 function answerCall(callId) {
-    kandy.call.answerCall(callId, false)
-    kandy.call.unMuteCall(callId);
+    kandy.call.answerCall(callId, true);
 }
 
 function endCall() {
@@ -57,7 +56,7 @@ kandy.setup({
     // Designate HTML elements to be our stream containers.
     remoteVideoContainer: document.getElementById("remote-container"),
     localVideoContainer: document.getElementById("local-container"),
-    
+
     listeners: {
         callinitiated: onCallInitiated,
         callincoming: onCallIncoming,
