@@ -3,6 +3,7 @@ var projectAPIKey = "DAK37713725dc7242e9acda3d88e68aa132";
 var username = "arpan";
 var password = "nihal111";
 
+var callMade, callReceived;
 
 function makeCall(userid) {
     kandy.call.makecall(userid, false);
@@ -85,7 +86,6 @@ kandy.setup({
 
 // Status of the user.
 var isLoggedIn = false;
-var callMade, callReceived;
 
 /*
  * Log the user in / out depending on current status.
