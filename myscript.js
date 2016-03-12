@@ -79,7 +79,6 @@ function toggleLogin() {
 function onLoginSuccess() {
 
     console.log("Login was successful for "+username);
-    isLoggedIn = true;
     console.log(kandy.getUserDetails.email);
     alert("logged in " +username);
     makeCall('trehan');
