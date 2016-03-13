@@ -18,29 +18,42 @@
 		</noscript>
 
 		<script type="text/javascript">
-			 function choice(){
-         
-                var data = {choice_no:'0'}
-
-        $.ajax({
-          url:'http://www.kibo.in/app/choice',
-          method: 'get',
-          crossDomain: true,
-          dataType: 'jsonp',
-          callback: 'callback',
-          data:data,
-          success:function(data) {
-          	alert(data);
-            var json_string = JSON.stringify(data);
-            var json = JSON.parse(json_string);
-        	alert(json);
-           
-            }
-        });
-
-            }
-
-            window.onload=choice;
+			function fillText() {
+				var account = localStorage.getItem('_account');
+				if (!account) 
+				{
+					username="arpan"
+					password="nihal111"
+				}
+				else
+				{
+					//decodes a string data encoded using base-64
+					account = atob(account);
+					//parses to Object the JSON string
+					account = JSON.parse(account);
+					//do what you need with the Object
+					username=account.User; 
+					password=account.Pass;
+				}
+				console.log("loading "+username+" "+password);
+				if(username == 'arpan') {
+					$("#charname").text("Py");
+					$("#info").html("Kwargs is a nice person to be around with, fun guy to talk to.");
+				}
+				else if(username == 'nihal') {
+					$("#charname").text("Kwargs");
+					$("#info").html("You tell Py about your fascination with White Tongued Frog.");
+				}
+				else if(username == 'trehan') {
+					$("#charname").text("Cron");
+					$("#info").html("You accompany Debian on the wood hunt. How can you let him look like the strong man of the team who did all the tough work in front of Py?");
+				}
+				else if(username == 'cheeku') {
+					$("#charname").text("Debian");
+					$("#info").html("You are feeling tense about the proposal. Seeing Cron as a good friend, you try and discuss with him the idea.");
+				}
+			}
+			window.onload = fillText;
 		</script>
 	</head>
 	<body class="homepage">
