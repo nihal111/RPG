@@ -26,6 +26,70 @@
       $(function() {
         var callId, username;
 
+        $('#yes').click(function() {
+        question(true);
+    });
+          $('#no').click(function() {
+       question(false);
+    });
+
+          function display(){
+        document.getElementById('question').style.visibility = "visible";
+
+        switch(username)
+        {
+          case "cheeku":
+              break;
+          case "arpan":
+              document.getElementById('ask').innerHTML="Do you turn Cron in to the police?";
+              document.getElementById('yes').innerHTML="Yes";
+              document.getElementById('no').innerHTML="No";
+              break;
+          case "trehan":
+              document.getElementById('ask').innerHTML="Do you try to plead your innocence?";
+              document.getElementById('yes').innerHTML="Yes";
+              document.getElementById('no').innerHTML="No";
+              break;
+          case "nihal":
+              document.getElementById('ask').innerHTML="Are you happy with your frog?";
+              document.getElementById('yes').innerHTML="Yes";
+              document.getElementById('no').innerHTML="No";
+              break;
+        }
+      }
+
+        function question(bool){
+            if(bool)
+              console.log("True");
+            else if (!bool)
+              console.log("False");
+
+            if(username=="cheeku" )
+            { 
+              if(bool==true)
+                var data = {choice_no:'0', value:'1'}
+              else
+                var data = {choice_no:'0', value:'0'}
+
+        $.ajax({
+          url:'http://www.kibo.in/app/hackathon',
+          method: 'get',
+          crossDomain: true,
+          dataType: 'jsonp',
+          callback: 'callback',
+          data:data,
+          success:function(data) {
+         
+          }
+        });
+
+            }
+
+        document.getElementById('proceed').style.visibility = "visible";
+        document.getElementById('question').style.visibility = "hidden";
+        
+        }
+
         // Create audio objects to play incoming calls and outgoing calls sound
       var $audioRingIn = $('<audio>', { loop: 'loop', id: 'ring-in' });
       var $audioRingOut = $('<audio>', { loop: 'loop', id: 'ring-out' });
@@ -194,29 +258,77 @@
 
         projectAPIKey = "DAK37713725dc7242e9acda3d88e68aa132";
 
-        function loadData() {
-		   var account = localStorage.getItem('_account');
-		   if (!account)
-		   {
-		    username="arpan"
-		    password="nihal111"
-		   }
-		   else
-		   {
-		   //decodes a string data encoded using base-64
-		   account = atob(account);
-		   //parses to Object the JSON string
-		   account = JSON.parse(account);
-		   //do what you need with the Object
-		   username=account.User;
-		   password=account.Pass;
-		    }
-		    console.log("loading "+username+" "+password);
-		    $('#username').text(username);
-		   kandy.login(projectAPIKey, username, password, onLoginSuccess, onLoginFailure);
+function loadData() {
+        document.getElementById('proceed').style.visibility = "hidden";
+        document.getElementById('question').style.visibility = "hidden";
+       var account = localStorage.getItem('_account');
+       if (!account)
+       {
+        username="arpan"
+        password="nihal111"
+       }
+       else
+       {
+          //decodes a string data encoded using base-64
+          account = atob(account);
+          //parses to Object the JSON string
+          account = JSON.parse(account);
+          //do what you need with the Object
+          username=account.User;
+          password=account.Pass;
+        }
+        console.log("loading "+username+" "+password);
+        $('#username').text(username);
+        document.getElementById("username_span").innerHTML=username;
+        kandy.login(projectAPIKey, username, password, onLoginSuccess, onLoginFailure);
 
-		}
+        var users = ["", 'arpan', 'nihal', 'trehan', 'cheeku'];
+        if(username == 'arpan')
+          var data = {stage:'3', index:'1'}
+        if(username == 'nihal')
+          var data = {stage:'3', index:'2'}
+        if(username == 'trehan')
+          var data = {stage:'3', index:'3'}
+        if(username == 'cheeku')
+          var data = {stage:'3', index:'4'}
+
+        $.ajax({
+          url:'http://www.kibo.in/app/test',
+          method: 'get',
+          crossDomain: true,
+          dataType: 'jsonp',
+          callback: 'callback',
+          data:data,
+          success:function(data) {
+            json_string = JSON.stringify(data);
+            json = JSON.parse(json_string);
+            console.log("first="+json.first);
+            console.log("second="+json.second);
+            if(username == users[parseInt(json.first)]) {
+              toCall = true;
+              if(users[parseInt(json.second)] == 'arpan') {
+                $("#user_to_call").val("arpan@ferozepur.gmail.com");
+                document.getElementById("username_span").innerHTML=username+" and arpan";
+              }
+              if(users[parseInt(json.second)] == 'nihal') {
+                $("#user_to_call").val("");
+                document.getElementById("username_span").innerHTML=username+" and nihal";
+              }
+              if(users[parseInt(json.second)] == 'trehan') {
+                $("#user_to_call").val("trehan@ferozepur.gmail.com");
+                document.getElementById("username_span").innerHTML=username+" and trehan";
+              }
+              if(users[parseInt(json.second)] == 'cheeku') {
+                $("#user_to_call").val("");
+                document.getElementById("username_span").innerHTML=username+" and cheeku";
+              }
+            }
+          }
+        });
+
+    }
         window.onload = loadData;
+
 
         /** UIState is a custom piece of code that shuffles between UI states
           eg:: If user is authenticated, the relevant DOM elements are brought to screen

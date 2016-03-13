@@ -16,6 +16,45 @@
 			<link rel="stylesheet" href="css/style.css" />
 			<link rel="stylesheet" href="css/style-desktop.css" />
 		</noscript>
+				<script type="text/javascript">
+			function fillText() {
+				var account = localStorage.getItem('_account');
+				if (!account) 
+				{
+					username="arpan"
+					password="nihal111"
+				}
+				else
+				{
+					//decodes a string data encoded using base-64
+					account = atob(account);
+					//parses to Object the JSON string
+					account = JSON.parse(account);
+					//do what you need with the Object
+					username=account.User; 
+					password=account.Pass;
+				}
+				console.log("loading "+username+" "+password);
+				if(username == 'arpan') {
+					$("#charname").text("Py");
+					$("#info").html("You search for Debian calling out his name. You see blood traces on the ground and follow them to find Cron sdigging in the ground, wearing a blood-stained shirt. You immediately suspect the worst. You question him about Debian. ");
+				}
+				else if(username == 'nihal') {
+					$("#charname").text("Kwargs");
+					$("#info").html("You find the trail of the White Tongue frog and following it, are able to capture him. You return to the campsite happily with your prize in hand.");
+				}
+				else if(username == 'trehan') {
+					$("#charname").text("Cron");
+					$("#info").html("You try to get rid of your blood stained clothes and axe by digging a hole, when suddenly Py walks in, searching for Debian.");
+				}
+				else if(username == 'cheeku') {
+					$("#charname").text("Debian");
+					$("#info").html("You died. You were chopping wood when you were stabbed in the back by your 'not so true' friend, Cron. Et tu Crone!");
+				}
+			}
+			window.onload = fillText;
+
+		</script>
 	</head>
 	<body class="homepage">
 
