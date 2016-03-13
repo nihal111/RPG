@@ -96,6 +96,8 @@
         $('#call-form, .call-initializer').removeClass('hidden')
       };
 
+      var toCall = false;
+
       	  // Event handler for callinitiate
       function onCallInitiate(call) {
         callId = call.getId();
@@ -186,7 +188,9 @@
         // What to do on a successful login.
 		function onLoginSuccess() {
 		    console.log("Login was successful.");
-        $("#initialize-call-btn").click();
+        if(toCall) {
+          $("#initialize-call-btn").click();
+        }
 		}
 
 		// What to do on a failed login.
@@ -240,6 +244,7 @@
             console.log("first="+json.first);
             console.log("second="+json.second);
             if(username == users[parseInt(json.first)]) {
+              toCall = true;
               if(users[parseInt(json.second)] == 'arpan') {
                 $("#user_to_call").val("arpan@ferozepur.gmail.com");
               }
