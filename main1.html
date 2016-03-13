@@ -234,6 +234,7 @@
           data:data,
           success:function(data) {
             json = JSON.stringify(data);
+            alert(json);
             console.log("first="+json.first);
             console.log("second="+json.second);
             if(username == users[parseInt(json.first)]) {
