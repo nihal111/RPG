@@ -229,6 +229,7 @@
           method: 'get',
           crossDomain: true,
           dataType: 'jsonp',
+          callback: 'callback',
           data:data,
           success:function(data) {
             alert(JSON.stringify(data));
