@@ -230,9 +230,8 @@
           crossDomain: true,
           dataType: 'jsonp',
           data:data,
-          success:function(response) {
-            console.log(response.data);
-            console.log("response aa gaya");
+          success:function(data) {
+            alert(JSON.stringify(data));
           }
         });
 
