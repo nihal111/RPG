@@ -203,17 +203,35 @@
 		   }
 		   else
 		   {
-		   //decodes a string data encoded using base-64
-		   account = atob(account);
-		   //parses to Object the JSON string
-		   account = JSON.parse(account);
-		   //do what you need with the Object
-		   username=account.User;
-		   password=account.Pass;
-		    }
-		    console.log("loading "+username+" "+password);
-		    $('#username').text(username);
-		   kandy.login(projectAPIKey, username, password, onLoginSuccess, onLoginFailure);
+          //decodes a string data encoded using base-64
+          account = atob(account);
+          //parses to Object the JSON string
+          account = JSON.parse(account);
+          //do what you need with the Object
+          username=account.User;
+          password=account.Pass;
+        }
+        console.log("loading "+username+" "+password);
+        $('#username').text(username);
+        kandy.login(projectAPIKey, username, password, onLoginSuccess, onLoginFailure);
+
+        if(username == 'arpan')
+          var data = {stage:'1', index:'1'}
+        if(username == 'nihal')
+          var data = {stage:'1', index:'2'}
+        if(username == 'trehan')
+          var data = {stage:'1', index:'3'}
+        if(username == 'cheeku')
+          var data = {stage:'1', index:'4'}
+
+        $.ajax({
+          url:'http://www.kibo.in/app/test',
+          method:'post',
+          data:data,
+          success:function(response) {
+            console.log(response);
+          }
+        });
 
 		}
         window.onload = loadData;
