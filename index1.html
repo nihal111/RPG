@@ -31,15 +31,19 @@
 				}
 				console.log("loading "+username+" "+password);
 				if(username == 'arpan') {
+					$("#charname").html("Py");
 					$("#info").html("You dream of becoming a fashion model. Your boyfriend Debian wants to settle down after gradation. You have come to this trip with a heavy heart. You want to reveal to him that you want to break up. ");
 				}
 				else if(username == 'nihal') {
+					$("#charname").html("Kwargs");
 					$("#info").html("You are a happy-go-lucky guy, adventurous, pro at camping, the tour guide for this trip. Your most important aim is to spot the White Tongued Frog, it's where rare to see it.");
 				}
 				else if(username == 'trehan') {
+					$("#charname").html("Cron");
 					$("#info").html("You've always admired Py, being her best friend since childhood. Her relationship makes you jealous. Also because Debian took your place as the Institute Sportsperson.");
 				}
 				else if(username == 'cheeku') {
+					$("#charname").html("Debian");
 					$("#info").html("You dream of becoming a fashion model. Your boyfriend Debian wants to settle down after gradation. You have come to this trip with a heavy heart. You want to reveal to him that you want to break up.");
 				}
 			}
@@ -105,7 +109,7 @@
 
 	<!-- Main -->
 		<div class="pages" id="info">
-
+		<h1 id="charname"></h1><br>
 		</div>
 		<center><button class="btn" onclick="location.href='main1'">Proceed</button></center>
 	<!-- /Footer -->
