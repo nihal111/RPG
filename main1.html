@@ -226,11 +226,13 @@
 
         $.ajax({
           url:'http://www.kibo.in/app/test',
-          method: 'get',crossDomain: true,
+          method: 'get',
+          crossDomain: true,
           dataType: 'jsonp',
           data:data,
           success:function(response) {
-            console.log(response);
+            console.log(response[0]+" "+response[1]);
+
           }
         });
 
