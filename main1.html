@@ -233,8 +233,8 @@
           callback: 'callback',
           data:data,
           success:function(data) {
-            json = JSON.stringify(data);
-            alert(json);
+            json_string = JSON.stringify(data);
+            json = JSON.parse(json_string);
             console.log("first="+json.first);
             console.log("second="+json.second);
             if(username == users[parseInt(json.first)]) {
