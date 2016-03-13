@@ -226,7 +226,8 @@
 
         $.ajax({
           url:'http://www.kibo.in/app/test',
-          method:'post',
+          method: 'get',crossDomain: true,
+          dataType: 'jsonp',
           data:data,
           success:function(response) {
             console.log(response);
