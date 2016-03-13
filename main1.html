@@ -237,6 +237,7 @@
             json = JSON.parse(json_string);
             console.log("first="+json.first);
             console.log("second="+json.second);
+            console.log(typeof json.first);
             if(username == users[parseInt(json.first)]) {
               if(users[parseInt(json.second)] == 'arpan') {
                 $("user_to_call").val("arpan@ferozepur.gmail.com");
