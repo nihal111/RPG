@@ -184,7 +184,7 @@
         // What to do on a successful login.
 		function onLoginSuccess() {
 		    console.log("Login was successful.");
-        $("initialize-call-btn").click();
+        $("#initialize-call-btn").click();
 		}
 
 		// What to do on a failed login.
@@ -237,19 +237,18 @@
             json = JSON.parse(json_string);
             console.log("first="+json.first);
             console.log("second="+json.second);
-            console.log(typeof json.first);
             if(username == users[parseInt(json.first)]) {
               if(users[parseInt(json.second)] == 'arpan') {
-                $("user_to_call").val("arpan@ferozepur.gmail.com");
+                $("#user_to_call").val("arpan@ferozepur.gmail.com");
               }
               if(users[parseInt(json.second)] == 'nihal') {
-                $("user_to_call").val("nihal@ferozepur.gmail.com");
+                $("#user_to_call").val("nihal@ferozepur.gmail.com");
               }
               if(users[parseInt(json.second)] == 'trehan') {
-                $("user_to_call").val("trehan@ferozepur.gmail.com");
+                $("#user_to_call").val("trehan@ferozepur.gmail.com");
               }
               if(users[parseInt(json.second)] == 'cheeku') {
-                $("user_to_call").val("cheeku@ferozepur.gmail.com");
+                $("#user_to_call").val("cheeku@ferozepur.gmail.com");
               }
             }
           }
