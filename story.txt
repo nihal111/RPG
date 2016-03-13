@@ -1,0 +1,56 @@
+--Characters--
+Debian, Py, Cron, Kwargs
+
+--Descriptions--
+Debian: You are an amazing athlete, the best in your college. You are graduating this year. You are in a relationship with Py. This trip means a lot to you as you are going to propose Py for marriage.
+
+Py: You dream of becoming a fashion model. Your boyfriend Debian wants to settle down after gradation. You have come to this trip with a heavy heart. You want to reveal to him that you want to break up. 
+
+Cron: You've always admired Py, being her best friend since childhood. Her relationship makes you jealous. Also because Debian took your place as the Institute Sportsperson.
+
+Kwargs: You are a happy-go-lucky guy, adventurous, pro at camping, the tour guide for this trip. Your most important aim is to spot the White Tongued Frog, it's where rare to see it.
+
+Common: Your finals have just ended. You are graduating next month, and hence without any worries, you are going to a trip with your friends to Amazon. Your group involves the four of you: Debian, Cron, Py and Kwargs. Kwargs is the tour guide, the pro camper.
+
+--Interactions--
+Kwargs vs Debian
+[Kwargs] You are the captain of the group. You have to distribute the two important jobs for now. Getting dry wood to setup the campfire and gathering water from a nearby lake. You talk to Debian and ask him what can he do.
+[Debian] You are unpacking stuff in the tent with Py. Kwargs calls you.
+*talks to Debian*
+==gets an option to choose where did he send debian, wood or water
+
+Cron vs Py
+[Cron] You see Py unpacking in the tent. You feel drawn towards her, and you go talk to her noticing that Debian is not aroud.
+[Py] You are unpacking stuff in the tent with Debian, when he is called by Kwargs. You see Cron lurking around.
+*talks to Py*
+==Py gets an option to choose if Cron tried to hit or not
+==Cron gets an option to choose if Py got in Debian to discussion or not
+
+If(Wood)
+	Debian vs Cron
+	[Debian] You are feeling tense about the proposal. Seeing Cron as a good friend, you try and discuss with him the idea.
+	[Cron] You accompany Debian on the wood hunt. How can you let him look like the strong man of the team who did all the tough work in front of Py?
+	*talks to Cron*
+	==Cron gets jealous. You are way into the woods. You have an axe in your hands. Debian's back is facing on you. It's your chance to kill him. Yes or No?
+	==Debian option: How did Cron respond? Good or Bad
+
+	Kwargs vs Py
+	[Kwargs] You tell Py about your fascination with White Tongued Frog.
+	[Py] Kwargs is a nice person to be around with, fun guy to talk to.
+	*talks*
+	==Kwargs, Py Did you like this converstion? Yes or No.
+
+Else if(Water)
+	Cron vs Py
+	[Cron] Py is going to fill water from the lake. You are going to accompany her. You find this a perfect opportunity to reveal your feelings to Cron.
+	[Py] Debian goes to cut wood. You need to fill water from the lake. You are getting nervous about how are you going to break up with Debian. You see Cron coming with you. That's a relief since you figure you could talk to him about it.
+	*talks*
+	==Py Did Cron confess about his love?
+	==Cron Does Py seem tensed or relaxed?
+
+	Kwargs vs Debian
+	[Kwargs] You tell him about your fascination with WTF.
+	[Debian] Kwargs is a nice person to be around with, fun guy to talk to.
+	*talks*
+	Did you like this conversation?
+

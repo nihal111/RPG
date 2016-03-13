@@ -148,6 +148,7 @@
         $audioRingIn[0].pause();
 
         UIState.initial();
+        document.getElementById('question').style.visibility = "visible";
       }
 
 
@@ -198,7 +199,19 @@
 
         projectAPIKey = "DAK37713725dc7242e9acda3d88e68aa132";
 
+        function question(bool){
+            if(bool)
+              console.log("True");
+            else if (!bool)
+              console.log("False");
+
+        document.getElementById('proceed').style.visibility = "visible";
+        document.getElementById('question').style.visibility = "hidden";
+        }
+
         function loadData() {
+        document.getElementById('proceed').style.visibility = "hidden";
+        document.getElementById('question').style.visibility = "hidden";
 		   var account = localStorage.getItem('_account');
 		   if (!account)
 		   {
@@ -324,6 +337,9 @@
 
       });
     </script>
+
+
+
   </head>
   <body>
     <div class="container">
@@ -382,6 +398,16 @@
       </div>
     </div>
     <br><br>
-    <center><button class="btn btn-success" onclick="location.href='index2'">Proceed</button></center>
+
+    <div id ="question">
+      <center>
+        <button class="btn btn-success" onclick="question(true)">Yes</button>&nbsp&nbsp&nbsp
+        <button class="btn btn-success" onclick="question(false)">No</button>
+      </center>
+    </div>
+
+    <div id="proceed">
+      <center><button class="btn btn-success" onclick="location.href='index2'">Proceed</button></center>
+    </div>
   </body>
 </html>
